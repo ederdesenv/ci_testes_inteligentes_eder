@@ -50,4 +50,6 @@ test('Logar e adicionar o produto mais barato ao carrinho', async ({ page }) => 
   expect(parseFloat(cartPrice?.replace('$', '') ?? '0')).toBe(minPrice);
 
   console.log(`🛒 Produto no carrinho: ${cartName} — ${cartPrice}`);
-});
+
+}
+);
