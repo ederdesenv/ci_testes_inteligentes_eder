@@ -6,9 +6,9 @@ Repositório atende a atividade: Pipeline de CI e automação de testes sem e co
 
 <<<<<<< HEAD
 caso de teste: validar o login com IA 
-=======
+
 caso de teste: Teste de login via api 
->>>>>>> 2becb2b (validar o login com IA)
+(validar o login com IA)
 Código: 
 require('dotenv').config();
 const { test, expect } = require('@playwright/test');
@@ -39,4 +39,11 @@ test('Adicionar produto mais barato ao carrinho - SauceDemo', async ({ page }) =
   }
 
 });
+
+Resultado dos Testes
+Ao rodar os testes:
+caso de teste: alidar o login com IA   o tempo medio de execução foi                 7,2ms
+caso de teste: adicionar produto no carrinho com IA   o tempo medio de execução foi 10,8ms
+
+
 
