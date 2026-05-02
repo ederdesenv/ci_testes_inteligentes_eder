@@ -1,13 +1,9 @@
 name: CI - Testes Automatizados
 on:
   push:
-    branches-ignore:
-      - main
-      - master
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [ main ]
 jobs:
   test:
     timeout-minutes: 60
