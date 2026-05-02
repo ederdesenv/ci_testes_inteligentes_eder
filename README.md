@@ -3,11 +3,9 @@
 # ci_testes_inteligentes_eder
 Repositório atende a atividade: Pipeline de CI e automação de testes sem e com o suporte e recursos de IA
 
-Teste de login via api 
-caso de teste: 
+
+caso de teste: validar o login com IA 
 Código: 
-// @ts-check
-// test.spec.js
 require('dotenv').config();
 const { test, expect } = require('@playwright/test');
 const { ai } = require('@zerostep/playwright');
