@@ -1,4 +1,4 @@
-name: CI - Testes Automatizados
+name: CI - Testes Automatizados com IA Generativa
 on:
   push:
     branches: [ main ]
