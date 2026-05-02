@@ -41,9 +41,13 @@ test('Adicionar produto mais barato ao carrinho - SauceDemo', async ({ page }) =
 });
 
 Resultado dos Testes
-Ao rodar os testes:
-caso de teste: alidar o login com IA   o tempo medio de execução foi                 7,2ms
+caso de teste: validar o login com IA   o tempo medio de execução foi                7,2ms
+caso de teste: automação 1 - validar o login  o tempo medio de execução foi          2,6ms
+
 caso de teste: adicionar produto no carrinho com IA   o tempo medio de execução foi 10,8ms
+caso de teste: automação 2 - adicionar produto no carrinho                           2,0ms
+
+
 
 
 
