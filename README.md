@@ -40,5 +40,3 @@ test('Adicionar produto mais barato ao carrinho - SauceDemo', async ({ page }) =
 
 });
 
-Resultados:
-<img src="metricas/validar_login_ia.png" alt="validar login com IA>
