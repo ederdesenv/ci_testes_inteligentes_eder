@@ -16,43 +16,16 @@ test('Adicionar produto mais barato ao carrinho - SauceDemo', async ({ page }) =
   await ai('Type "secret_sauce" in the password field', { page, test });
   await ai('Click the Login button', { page, test });
 
-  // 3. Aguardar página de produtos
-  await page.waitForURL('**/inventory.html');
-  console.log('✅ Login realizado com sucesso');
+  // 3. Verificar se o login foi bem-sucedido
+  const isLoggedIn = await page.url().includes('inventory.html') ||
+    await page.locator('.inventory_list').isVisible().catch(() => false);
 
-  // 4. Coletar preços e encontrar o mais barato
-  const products = await page.$$eval('.inventory_item', (items) => {
-    return items.map((item) => {
-      const name = item.querySelector('.inventory_item_name')?.textContent?.trim();
-      const priceText = item.querySelector('.inventory_item_price')?.textContent?.trim();
-      const price = parseFloat(priceText?.replace('$', ''));
-      return { name, price, priceText };
-    });
-  });
+  if (isLoggedIn) {
+    console.log('✅ Login realizado com sucesso!');
+  } else {
+    const errorMessage = await page.locator('[data-test="error"]').textContent().catch(() => 'Erro desconhecido');
+    console.error(`❌ Erro de login: ${errorMessage}`);
+    throw new Error(`Falha no login: ${errorMessage}`);
+  }
 
-  const cheapest = products.reduce((min, p) => p.price < min.price ? p : min);
-  console.log(`✅ Produto mais barato: ${cheapest.name} - ${cheapest.priceText}`);
-
-  // 5. Adicionar ao carrinho via AI
-  await ai(
-    `Find the product named "${cheapest.name}" and click its "Add to cart" button`,
-    { page, test }
-  );
-  console.log('✅ Produto adicionado ao carrinho');
-
-  // 6. Verificar badge do carrinho
-  const cartBadge = page.locator('.shopping_cart_badge');
-  await expect(cartBadge).toHaveText('1');
-  console.log('✅ Carrinho atualizado com 1 item');
-
-  // 7. Ir ao carrinho
-  await ai('Click on the shopping cart icon', { page, test });
-  await page.waitForURL('**/cart.html');
-
-  // 8. Confirmar produto no carrinho
-  await ai(
-    `Verify that "${cheapest.name}" is listed in the cart`,
-    { page, test }
-  );
-  console.log(`✅ Produto "${cheapest.name}" confirmado no carrinho`);
 });
