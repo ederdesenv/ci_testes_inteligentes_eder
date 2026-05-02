@@ -1,9 +1,13 @@
-name: Playwright Tests
+name: CI - Testes Automatizados
 on:
   push:
-    branches: [ main ]
+    branches-ignore:
+      - main
+      - master
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - master
 jobs:
   test:
     timeout-minutes: 60

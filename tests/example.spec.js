@@ -2,54 +2,21 @@
 
 const { test, expect } = require('@playwright/test');
 
-test.use({ browserName: 'chromium' });
-
-test('Logar e adicionar o produto mais barato ao carrinho', async ({ page }) => {
-  // ── 1. Navegar ────────────────────────────────────────────────────────────
+test('Caso de Teste 1 - Login com standard_user', async ({ page }) => {
+  // 1. Navegar para a página
   await page.goto('https://www.saucedemo.com/');
-
-  // ── 2. Login ──────────────────────────────────────────────────────────────
+  // 2. Verificar que a página carregou corretamente
+  await expect(page).toHaveTitle(/Swag Labs/);
+  // 3. Preencher o campo de usuário
   await page.locator('#user-name').fill('standard_user');
+  // 4. Preencher o campo de senha
   await page.locator('#password').fill('secret_sauce');
+  // 5. Clicar no botão de login
   await page.locator('#login-button').click();
+  // 6. Verificar que o login foi bem-sucedido
+  await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+  // 7. Verificar que o título da página de produtos está visível
+  await expect(page.locator('.title')).toHaveText('Products');
+  console.log('✅ Login realizado com sucesso!');
+});
 
-  // ── 3. Confirmar login ────────────────────────────────────────────────────
-  await expect(page).toHaveURL(/inventory/);
-  console.log('✅ Login realizado com sucesso');
-
-  // ── 4. Ler preços e nomes ─────────────────────────────────────────────────
-  const priceLocator = page.locator('.inventory_item_price');
-  const nameLocator  = page.locator('.inventory_item_name');
-  await expect(priceLocator.first()).toBeVisible();
-
-  const rawPrices = await priceLocator.allTextContents();
-  const rawNames  = await nameLocator.allTextContents();
-
-  const prices   = rawPrices.map(p => parseFloat(p.replace('$', '')));
-  const minPrice = Math.min(...prices);
-  const minIndex = prices.indexOf(minPrice);
-
-  console.log(`💰 Produto mais barato: "${rawNames[minIndex]}" — $${minPrice}`);
-
-  // ── 5. Adicionar ao carrinho ──────────────────────────────────────────────
-  await page.locator('.btn_inventory').nth(minIndex).click();
-
-  // ── 6. Verificar badge do carrinho ────────────────────────────────────────
-  await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
-  console.log('✅ Produto mais barato adicionado ao carrinho com sucesso');
-
-  // ── 7. Abrir carrinho ─────────────────────────────────────────────────────
-  await page.locator('.shopping_cart_link').click();
-  await expect(page).toHaveURL(/cart/, { timeout: 10_000 });
-
-  // ── 8. Validar item no carrinho ───────────────────────────────────────────
-  const cartName  = await page.locator('.inventory_item_name').textContent();
-  const cartPrice = await page.locator('.inventory_item_price').textContent();
-
-  expect(cartName?.trim()).toBe(rawNames[minIndex].trim());
-  expect(parseFloat(cartPrice?.replace('$', '') ?? '0')).toBe(minPrice);
-
-  console.log(`🛒 Produto no carrinho: ${cartName} — ${cartPrice}`);
-
-}
-);

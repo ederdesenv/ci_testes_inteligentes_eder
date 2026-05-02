@@ -1,3 +1,5 @@
+# Ambiente
+.env
 
 # Playwright
 node_modules/
