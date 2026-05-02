@@ -2,7 +2,7 @@
 
 # ci_testes_inteligentes_eder
 > [!NOTE]
-> Repositório atende à atividade: **Pipeline de CI e automação de testes sem e com o suporte e recursos de IA** , disciplina de Engenharia de Software, curso de Pós-Graduação Lato Sensu  Desenvolvimento Web e Mobile — Instituto Federal Sudeste de MG.
+> Repositório atende à atividade: **Pipeline de CI e automação de testes sem e com o suporte e recursos de IA** , disciplina de Engenharia de Software, curso de Pós-Graduação Lato Sensu em Desenvolvimento Web e Mobile do Instituto Federal Sudeste de MG.
 
 # 1. Objetivo do Projeto
   Este projeto tem como finalidade demonstrar a configuração de dois pipelines de Integração Contínua (CI) no GitHub Actions: um voltado à execução de testes automatizados convencionais e outro destinado a testes elaborados com apoio de Inteligência Artificial Generativa. 
